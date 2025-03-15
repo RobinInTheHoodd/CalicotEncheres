@@ -31,6 +31,9 @@ jobs:
           inlineScript: |
             az account show
 
+      - name: CD
+        run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
       # Initialiser Terraform
       - name: Initialize Terraform
         run: |
