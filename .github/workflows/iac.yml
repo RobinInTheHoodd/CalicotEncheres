@@ -61,6 +61,7 @@ jobs:
       - name: Terraform Apply
         run: |
           cd ./CalicotEncheres/Terraform/environnement/QA/
+          terraform state list
           terraform apply -auto-approve tfplan
 
       # Sortie de l'URL de l'application Web
