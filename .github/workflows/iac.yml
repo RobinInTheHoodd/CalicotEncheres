@@ -37,11 +37,13 @@ jobs:
       # Initialiser Terraform
       - name: Initialize Terraform
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform init
 
       # Valider la configuration Terraform
       - name: Terraform Validate
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform validate
 
       - name: List files
@@ -51,11 +53,13 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform plan
 
       # Appliquer le plan de déploiement Terraform
       - name: Terraform Apply
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform apply -auto-approve tfplan
 
       # Sortie de l'URL de l'application Web
