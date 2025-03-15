@@ -37,6 +37,10 @@ jobs:
             az account show
 
 
+      - name: CD
+        run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
+
       # Étape 3 : Initialiser Terraform
       - name: Initialize Terraform
         run: |
