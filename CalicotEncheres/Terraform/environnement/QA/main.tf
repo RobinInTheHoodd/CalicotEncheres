@@ -54,3 +54,10 @@ module "subnet_db" {
   subnet_prefixes = var.subnet_prefixes_db
 
 }
+
+module "app_service" {
+  source = "../../modules/app_service"
+
+  code_identification = "7"
+  rg_name         = module.rg-calicot-web-dev.name
+}
