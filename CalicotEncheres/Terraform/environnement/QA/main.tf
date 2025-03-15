@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 module "rg-calicot-web-dev" {
-  source = "../../module/ressource_group"
+  source = "../../modules/ressource_group"
 
   name     = var.resource_group_name
   location = var.resource_group_location
@@ -29,7 +29,7 @@ module "rg-calicot-commun-001" {
 
 
 module "vnet" {
-  source = "./modules/virtual_network"
+  source = "../../modules/virtual_network"
 
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
