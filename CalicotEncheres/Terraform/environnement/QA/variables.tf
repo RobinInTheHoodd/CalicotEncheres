@@ -12,6 +12,13 @@ variable "resource_group_location" {
   default     = "Canada Central"
 }
 
+variable "resource_group_name_img_store" {
+  description = "Nom du Resource Group"
+  type        = string
+  default     = "rg-calicot-commun"
+}
+
+
 # SUBNET VNET
 
 variable "vnet_name" {
