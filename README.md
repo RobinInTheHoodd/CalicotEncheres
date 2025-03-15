@@ -1,4 +1,4 @@
-PoETS ETS
+PoETS ETS MTL
 
 # Défi Interuniversitaire en **Infrastructure as Code (IaC)** - Microsoft Azure
 
