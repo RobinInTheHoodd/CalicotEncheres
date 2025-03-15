@@ -21,17 +21,17 @@ variable "resource_group_name_img_store" {
 # SUBNET VNET
 
 variable "vnet_name" {
-    description = "Nom du Vnet"
-    type        = string
-    default     = "vnet-dev-calicot-cc-7"
+  description = "Nom du Vnet"
+  type        = string
+  default     = "vnet-dev-calicot-cc-7"
 }
 
 # SUBNET WEB 
 
 variable "subnet_name_web" {
   description = "Nom du Subnet"
-  type = string
-  default = "snet-dev-web-cc-7"
+  type        = string
+  default     = "snet-dev-web-cc-7"
 }
 
 variable "subnet_prefixes_web" {
@@ -44,8 +44,8 @@ variable "subnet_prefixes_web" {
 
 variable "subnet_name_db" {
   description = "Nom du Subnet"
-  type = string
-  default = "snet-dev-web-cc-7"
+  type        = string
+  default     = "snet-dev-web-cc-7"
 }
 
 variable "subnet_prefixes_db" {
@@ -95,4 +95,9 @@ variable "monitor_web_app_name" {
   type        = string
   default     = "autoscale-calicot-dev-7"
 
+}
+variable "network_security_group_name" {
+  description = "Nom du Resource Group"
+  type        = string
+  default     = "nsg-calicot-web-dev-7"
 }
