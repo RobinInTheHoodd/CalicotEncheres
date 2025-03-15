@@ -44,11 +44,14 @@ jobs:
         run: |
           terraform validate
 
+      - name: List files
+        run: |
+          ls -R
       # Planifier le déploiement Terraform
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -out=tfplan
+          terraform plan
 
       # Appliquer le plan de déploiement Terraform
       - name: Terraform Apply
