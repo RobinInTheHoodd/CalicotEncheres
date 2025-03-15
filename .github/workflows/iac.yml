@@ -31,25 +31,35 @@ jobs:
           inlineScript: |
             az account show
 
+      - name: CD
+        run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
       # Initialiser Terraform
       - name: Initialize Terraform
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform init
 
       # Valider la configuration Terraform
       - name: Terraform Validate
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform validate
 
+      - name: List files
+        run: |
+          ls -R
       # Planifier le déploiement Terraform
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -out=tfplan
+          cd ./CalicotEncheres/Terraform/environnement/QA/
+          terraform plan
 
       # Appliquer le plan de déploiement Terraform
       - name: Terraform Apply
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform apply -auto-approve tfplan
 
       # Sortie de l'URL de l'application Web
