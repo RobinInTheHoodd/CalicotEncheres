@@ -60,7 +60,7 @@ module "sql_server" {
   source          = "../../modules/sql_server"
   rg_name         = module.rg-calicot-web-dev.name
   rg_location     = module.rg-calicot-web-dev.location
-  sql_server_name = "sql-calicot-dev-7"
+  sql_server_name = var.sql_server_name
 }
 
 
@@ -68,7 +68,7 @@ module "sql_server" {
 
 module "key_vault" {
   source      = "../../modules/key_vault"
-  name        = "kv-calicot-dev-7"
+  name        = var.key_vault_name
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
 
@@ -76,7 +76,7 @@ module "key_vault" {
 
 module "app_service" {
   source      = "../../modules/app_service"
-  name        = "plan-calicot-dev-7"
+  name        = var.app_service_name
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
 
@@ -87,9 +87,9 @@ module "web_app" {
 
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
-  name        = "app-calicot-dev-7"
+  name        = var.app_service_name
 
-  ImagesURL       = "https://stcalicotprod000.blob.core.windows.net/images/"
+  ImagesURL       = var.web_app_imageURL
   service_plan_id = module.app_service.service_plan_id
 }
 
@@ -97,7 +97,7 @@ module "monitor_web_app" {
 
   source = "../../modules/auto_scale"
 
-  name               = "autoscale-calicot-dev-7"
+  name               = var.monitor_web_app_name
   rg_name            = module.rg-calicot-web-dev.name
   rg_location        = module.rg-calicot-web-dev.location
   target_resource_id = module.app_service.service_plan_id

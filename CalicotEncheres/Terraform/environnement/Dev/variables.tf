@@ -51,3 +51,48 @@ variable "subnet_name_db" {
 variable "subnet_prefixes_db" {
   default = ["10.0.2.0/24"]
 }
+
+
+
+# SQL SERVER
+
+variable "sql_server_name" {
+  description = "Nom du SQL Server"
+  type        = string
+  default     = "sql-calicot-dev-7"
+}
+
+
+# Key Vault
+
+variable "key_vault_name" {
+  description = "Nom du Key Vault"
+  type        = string
+  default     = "kv-calicot-dev-7"
+}
+
+variable "app_service_name" {
+  description = "Nom du App Service"
+  type        = string
+  default     = "app-calicot-dev-7"
+}
+
+variable "web_app_name" {
+  description = "Nom du Web App"
+  type        = string
+  default     = "app-calicot-dev-7"
+}
+
+variable "web_app_imageURL" {
+  description = "URL de l'image"
+  type        = string
+  default     = "https://stcalicotprod000.blob.core.windows.net/images/"
+
+}
+
+variable "monitor_web_app_name" {
+  description = "Nom du Monitor Web App"
+  type        = string
+  default     = "autoscale-calicot-dev-7"
+
+}
