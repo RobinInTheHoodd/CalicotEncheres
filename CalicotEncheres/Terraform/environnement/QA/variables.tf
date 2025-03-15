@@ -19,6 +19,13 @@ variable "resource_group_name_img_store" {
 }
 
 
+variable "network_security_group_name" {
+  description = "Nom du Resource Group"
+  type        = string
+  default     = "nsg-calicot-web-qa-7"
+}
+
+
 # SUBNET VNET
 
 variable "vnet_name" {

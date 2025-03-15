@@ -55,6 +55,29 @@ module "subnet_db" {
 
 }
 
+module "network_security_group" {
+  source = "../../modules/network_security_group"
+
+  name        = var.network_security_group_name
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+}
+
+
+module "network_security_rules" {
+  source = "../../modules/network_security_rules"
+
+  rg_name  = module.rg-calicot-web-dev.name
+  nsg_name = module.network_security_group.name
+}
+
+
+module "network_association" {
+  source = "../../modules/network_association"
+
+  subnet_id = module.subnet_web.subnet_id
+  nsg_id    = module.network_security_group.nsg_id
+}
 
 module "sql_server" {
   source          = "../../modules/sql_server"
