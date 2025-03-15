@@ -1,0 +1,67 @@
+name: CI/CD Terraform Deploy
+
+on:
+  push:
+    branches:
+      - main  # Déclenche le pipeline lorsque du code est poussé sur la branche 'main'
+  pull_request:
+    branches:
+      - main  # Déclenche le pipeline sur les pull requests vers 'main'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Checkout du code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+            terraform_version: "^1.1.7"
+            terraform_wrapper: false
+
+      # Étape 2 : Configuration de l'authentification Azure via le Service Principal
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+
+
+      # Étape 3 : Initialiser Terraform
+      - name: Initialize Terraform
+        run: |
+          terraform init
+
+      # Étape 4 : Vérifier la configuration de Terraform
+      - name: Terraform Validate
+        run: |
+          terraform validate
+
+      # Étape 5 : Planifier le déploiement Terraform
+      - name: Terraform Plan
+        id: plan
+        run: |
+          terraform plan -out=tfplan
+
+      # Étape 6 : Appliquer les changements Terraform
+      - name: Terraform Apply
+        if: github.event_name == 'push'  # N'appliquer que sur les push, pas les PR
+        run: |
+          terraform apply -auto-approve tfplan
+
+      # Étape 7 : Déployer l'application après la mise à jour de l'infrastructure
+      - name: Deploy Application
+        run: |
+          # Ajoute ici la commande pour déployer ton application
+          # Par exemple, un simple `az webapp deployment` ou un `docker build` + `docker push`
+          echo "Deploying application..."
