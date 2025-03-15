@@ -58,7 +58,7 @@ module "subnet_db" {
 module "network_security_group" {
   source = "../../modules/network_security_group"
 
-  name        = var.network_security_group_name
+  net_name    = "sdssds"
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
 }
