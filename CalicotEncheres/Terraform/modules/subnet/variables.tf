@@ -1,8 +1,15 @@
 variable "subnet_name" {
   type = string
-  default      = "exemple_subnet"
-}
-variable "subnet_prefixes" {
-  default = ["10.0.1.0/24"]
 }
 
+variable "vnet_name" {
+  type = string
+}
+
+variable "rg_name" {
+  type = string
+}
+
+variable "subnet_prefixes" {
+  type = list(string)
+}

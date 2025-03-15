@@ -21,8 +21,27 @@ module "rg" {
 }
 
 module "vnet" {
-  source      = "./modules/virtual_network"
+  source = "./modules/virtual_network"
+
   rg_name     = module.rg.name
   rg_location = module.rg.location
 }
 
+module "subnet_web" {
+  source = "../../modules/subnet"
+
+  vnet_name       = module.vnet.name
+  rg_name         = module.rg.name
+  subnet_name     = var.subnet_name_web
+  subnet_prefixes = var.subnet_prefixes_web
+}
+
+
+module "subnet_db" {
+  source = "../../module/subnet"
+
+  
+  subnet_name     = var.subnet_name_db
+  subnet_prefixes = var.subnet_prefixes_db
+
+}
