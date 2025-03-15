@@ -1,3 +1,6 @@
+variable "name" {
+  type = string
+}
 
 variable "rg_name" {
   type = string
@@ -7,7 +10,6 @@ variable "rg_location" {
   type = string
 }
 
-variable "name" {
+variable "target_resource_id" {
   type = string
-  
 }

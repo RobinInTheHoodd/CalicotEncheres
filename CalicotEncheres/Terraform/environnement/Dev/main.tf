@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 module "rg-calicot-web-dev" {
-  source = "../../module/ressource_group"
+  source = "../../modules/ressource_group"
 
   name     = var.resource_group_name
   location = var.resource_group_location
@@ -29,7 +29,7 @@ module "rg-calicot-commun-001" {
 
 
 module "vnet" {
-  source = "./modules/virtual_network"
+  source = "../../modules/virtual_network"
 
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
@@ -53,4 +53,52 @@ module "subnet_db" {
   subnet_name     = var.subnet_name_db
   subnet_prefixes = var.subnet_prefixes_db
 
+}
+
+
+module "sql_server" {
+  source          = "../../modules/sql_server"
+  rg_name         = module.rg-calicot-web-dev.name
+  rg_location     = module.rg-calicot-web-dev.location
+  sql_server_name = var.sql_server_name
+}
+
+
+# Key vault 
+
+module "key_vault" {
+  source      = "../../modules/key_vault"
+  name        = var.key_vault_name
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+
+}
+
+module "app_service" {
+  source      = "../../modules/app_service"
+  name        = var.app_service_name
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+
+}
+
+module "web_app" {
+  source = "../../modules/web_app"
+
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+  name        = var.app_service_name
+
+  ImagesURL       = var.web_app_imageURL
+  service_plan_id = module.app_service.service_plan_id
+}
+
+module "monitor_web_app" {
+
+  source = "../../modules/auto_scale"
+
+  name               = var.monitor_web_app_name
+  rg_name            = module.rg-calicot-web-dev.name
+  rg_location        = module.rg-calicot-web-dev.location
+  target_resource_id = module.app_service.service_plan_id
 }
