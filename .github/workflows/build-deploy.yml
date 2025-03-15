@@ -36,30 +36,30 @@ jobs:
           inlineScript: |
             az account show
 
-      - name: CD
-        run: |
-          cd ./CalicotEncheres/Terraform/environnement/QA/
-
       # Étape 3 : Initialiser Terraform
       - name: Initialize Terraform
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform init
 
       # Étape 4 : Vérifier la configuration de Terraform
       - name: Terraform Validate
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform validate
 
       # Étape 5 : Planifier le déploiement Terraform
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -out=tfplan
+          cd ./CalicotEncheres/Terraform/environnement/QA/
+          terraform plan
 
       # Étape 6 : Appliquer les changements Terraform
       - name: Terraform Apply
         if: github.event_name == 'push'  # N'appliquer que sur les push, pas les PR
         run: |
+          cd ./CalicotEncheres/Terraform/environnement/QA/
           terraform apply -auto-approve tfplan
 
       # Étape 7 : Déployer l'application après la mise à jour de l'infrastructure
