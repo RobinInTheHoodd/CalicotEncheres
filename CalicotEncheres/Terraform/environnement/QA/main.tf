@@ -26,12 +26,6 @@ module "rg-calicot-web-dev" {
   location = var.resource_group_location
 }
 
-module "rg-calicot-commun-001" {
-  source = "../../modules/ressource_group"
-
-  name     = var.resource_group_name_img_store
-  location = var.resource_group_location
-}
 
 
 module "vnet" {
