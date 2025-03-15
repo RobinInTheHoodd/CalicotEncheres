@@ -60,7 +60,8 @@ jobs:
         if: github.event_name == 'push'  # N'appliquer que sur les push, pas les PR
         run: |
           cd ./CalicotEncheres/Terraform/environnement/QA/
-          terraform apply -auto-approve tfplan
+          ls -r
+          terraform apply -auto-approve ./tfplan
 
       # Étape 7 : Déployer l'application après la mise à jour de l'infrastructure
       - name: Deploy Application
