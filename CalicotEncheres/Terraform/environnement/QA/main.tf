@@ -11,6 +11,12 @@ terraform {
 
 provider "azurerm" {
   features {}
+
+  client_id       = "3129e50b-7b2b-4004-a2a8-678b02d1d89e"
+  client_secret   = "M9Z8Q~pWSYg0FYgeSP-lV2ty4C3_XvzncIj3daPy"
+  tenant_id       = "4dbda3f1-592e-4847-a01c-1671d0cc077f"
+  subscription_id = "34c6c373-ad28-45b2-a866-de1d853f2812"
+
 }
 
 module "rg-calicot-web-dev" {
