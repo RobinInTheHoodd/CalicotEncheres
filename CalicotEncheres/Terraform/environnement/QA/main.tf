@@ -55,7 +55,6 @@ module "subnet_db" {
 
 }
 
-<<<<<<< HEAD
 
 module "sql_server" {
   source          = "../../modules/sql_server"
@@ -72,11 +71,34 @@ module "key_vault" {
   name        = "kv-calicot-dev-7"
   rg_name     = module.rg-calicot-web-dev.name
   rg_location = module.rg-calicot-web-dev.location
-=======
-module "app_service" {
-  source = "../../modules/app_service"
 
-  code_identification = "7"
-  rg_name         = module.rg-calicot-web-dev.name
->>>>>>> adf11ce5a84197fa386fc39b2857420bda2eb3d2
+}
+
+module "app_service" {
+  source      = "../../modules/app_service"
+  name        = "plan-calicot-dev-7"
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+
+}
+
+module "web_app" {
+  source = "../../modules/web_app"
+
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+  name        = "app-calicot-dev-7"
+
+  ImagesURL       = "https://stcalicotprod000.blob.core.windows.net/images/"
+  service_plan_id = module.app_service.service_plan_id
+}
+
+module "monitor_web_app" {
+
+  source = "../../modules/auto_scale"
+
+  name               = "autoscale-calicot-dev-7"
+  rg_name            = module.rg-calicot-web-dev.name
+  rg_location        = module.rg-calicot-web-dev.location
+  target_resource_id = module.app_service.service_plan_id
 }
