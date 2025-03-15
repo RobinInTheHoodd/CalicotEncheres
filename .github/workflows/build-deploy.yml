@@ -53,7 +53,7 @@ jobs:
         id: plan
         run: |
           cd ./CalicotEncheres/Terraform/environnement/QA/
-          terraform plan
+          terraform plan -out=tfplan
 
       # Étape 6 : Appliquer les changements Terraform
       - name: Terraform Apply

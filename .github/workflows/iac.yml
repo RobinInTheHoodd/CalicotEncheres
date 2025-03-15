@@ -55,7 +55,7 @@ jobs:
         id: plan
         run: |
           cd ./CalicotEncheres/Terraform/environnement/QA/
-          terraform plan
+          terraform plan -out=tfplan
 
       # Appliquer le plan de déploiement Terraform
       - name: Terraform Apply
