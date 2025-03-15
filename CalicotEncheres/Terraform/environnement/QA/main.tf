@@ -54,3 +54,21 @@ module "subnet_db" {
   subnet_prefixes = var.subnet_prefixes_db
 
 }
+
+
+module "sql_server" {
+  source          = "../../modules/sql_server"
+  rg_name         = module.rg-calicot-web-dev.name
+  rg_location     = module.rg-calicot-web-dev.location
+  sql_server_name = "sql-calicot-dev-7"
+}
+
+
+# Key vault 
+
+module "key_vault" {
+  source      = "../../modules/key_vault"
+  name        = "kv-calicot-dev-7"
+  rg_name     = module.rg-calicot-web-dev.name
+  rg_location = module.rg-calicot-web-dev.location
+}
