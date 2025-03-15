@@ -1,0 +1,58 @@
+name: Infrastructure Deployment
+
+on:
+  workflow_dispatch:  # Déclenchement manuel via GitHub UI
+
+jobs:
+  deploy_infrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout du code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+            terraform_version: "^1.1.7"
+            terraform_wrapper: false
+
+      # Authentification Azure
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+
+      # Initialiser Terraform
+      - name: Initialize Terraform
+        run: |
+          terraform init
+
+      # Valider la configuration Terraform
+      - name: Terraform Validate
+        run: |
+          terraform validate
+
+      # Planifier le déploiement Terraform
+      - name: Terraform Plan
+        id: plan
+        run: |
+          terraform plan -out=tfplan
+
+      # Appliquer le plan de déploiement Terraform
+      - name: Terraform Apply
+        run: |
+          terraform apply -auto-approve tfplan
+
+      # Sortie de l'URL de l'application Web
+      - name: Output web app URL
+        run: |
+          echo "Web app URL: $(terraform output web_app_url)"

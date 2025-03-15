@@ -17,13 +17,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Étape 2 : Configuration de l'authentification Azure via le Service Principal
-      - name: Set up Azure credentials
-        uses: azure/login@v1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+            terraform_version: "^1.1.7"
+            terraform_wrapper: false
+
+      # Étape 2 : Configuration de l'authentification Azure via le Service Principal
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+
 
       # Étape 3 : Initialiser Terraform
       - name: Initialize Terraform
