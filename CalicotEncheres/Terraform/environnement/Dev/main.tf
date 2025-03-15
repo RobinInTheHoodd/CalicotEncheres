@@ -38,9 +38,10 @@ module "subnet_web" {
 
 
 module "subnet_db" {
-  source = "../../module/subnet"
+  source = "../../modules/subnet"
 
-  
+  vnet_name       = module.vnet.name
+  rg_name         = module.rg.name
   subnet_name     = var.subnet_name_db
   subnet_prefixes = var.subnet_prefixes_db
 
